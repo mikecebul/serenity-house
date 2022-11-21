@@ -66,7 +66,7 @@ export default function NavBar() {
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button
                   type="button"
-                  className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  className="rounded-full bg-gray-800 p-1 text- hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
                   <span className="sr-only">View notifications</span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
@@ -89,8 +89,8 @@ export default function NavBar() {
                         <UserIcon />
                       }
                       </Menu.Button> :
-                      <Menu.Button onClick={() => signIn()} className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                      <p>Sign in</p>
+                      <Menu.Button onClick={() => signIn()} className="flex rounded-2xl px-4 py-2 font-medium transition hover:scale-105 duration-75 bg-rose-600 text-white text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                      Sign in
                       </Menu.Button>
                         
                       }
@@ -137,13 +137,13 @@ export default function NavBar() {
                           onClick={() => signOut()}
                             className={classNames(
                               active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
+                              "block px-4 py-2 text-sm text-gray-700 w-full text-start"
                             )}
                           >
-                            Sign out
+                            Sign out                        
                           </button>
                         )}
-                      </Menu.Item>
+                      </Menu.Item>    
                     </Menu.Items>
                   </Transition>
                 </Menu>

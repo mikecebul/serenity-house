@@ -12,8 +12,12 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Charlevoix Alano Club</title>
-        <meta name="description" content="An alcohol and drug-free environment for recovery programs." />
+        <title>Home | Charlevoix Alano Club</title>
+        <meta
+          name="description"
+          content="An alcohol and drug-free environment for recovery programs."
+        />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Hero />
@@ -52,7 +56,7 @@ const Home: NextPage = () => {
           </div>
         </div>
       </div>
-      </>
+    </>
   );
 };
 
@@ -63,7 +67,7 @@ const AuthShowcase: React.FC = () => {
 
   const { data: secretMessage } = trpc.auth.getSecretMessage.useQuery(
     undefined, // no input
-    { enabled: sessionData?.user !== undefined },
+    { enabled: sessionData?.user !== undefined }
   );
 
   return (
