@@ -1,9 +1,9 @@
 import { Fragment } from "react";
 import { Menu, Transition, Popover } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, BellIcon, XMarkIcon, UserIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import NavLink from "./navLink";
-import { useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -25,7 +25,7 @@ export default function NavBar() {
     <Popover as="nav" className="bg-gray-800 relative">
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-2 md:px-8">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
                 {/* Mobile menu button*/}
@@ -75,20 +75,25 @@ export default function NavBar() {
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
+                    {sessionData ? 
                     <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open user menu</span>
-                      {sessionData?.user?.image ? 
+                      {sessionData.user?.image ? 
                         <Image
                             className="h-8 w-8 rounded-full"
                             src={sessionData.user.image}
                             alt=""
                             width={200}
                             height={200}
-                        /> : 
-                        <p>Signin</p>
+                            />  :
+                        <UserIcon />
                       }
+                      </Menu.Button> :
+                      <Menu.Button onClick={() => signIn()} className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                      <p>Sign in</p>
+                      </Menu.Button>
                         
-                    </Menu.Button>
+                      }
                   </div>
                   <Transition
                     as={Fragment}
@@ -128,15 +133,15 @@ export default function NavBar() {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          <button
+                          onClick={() => signOut()}
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
                             Sign out
-                          </a>
+                          </button>
                         )}
                       </Menu.Item>
                     </Menu.Items>
@@ -155,7 +160,7 @@ export default function NavBar() {
                           leaveFrom="transform opacity-100 scale-100"
                           leaveTo="transform opacity-0 scale-95"
                         >
-          <Popover.Panel className="sm:hidden absolute z-10 dark:bg-slate-800 w-full">
+          <Popover.Panel className="md:hidden absolute z-10 dark:bg-slate-800 w-full">
             {({ close }) => (
               <div onClick={() => close()} className="space-y-1 px-2 pt-2 pb-3 hover">
                 {navigation.map((item) => (
