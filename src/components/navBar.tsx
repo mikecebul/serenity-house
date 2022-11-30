@@ -1,13 +1,14 @@
 import { Fragment } from "react";
 import { Menu, Transition, Popover } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon, UserIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon, UserIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import NavLink from "./navLink";
 import { signIn, signOut, useSession } from "next-auth/react";
+import ThemeButton from "./themeButton";
 
 const navigation = [
   { name: "Home", href: "/" },
-  { name: "Meetings", href: "/meetings"},
+  { name: "Meetings", href: "/meetings" },
   // { name: "Donate", href: "/virtual-basket"},
   // { name: "News", href: "/news"},
   // { name: "Other Meetings", href: "/other-meetings"},
@@ -18,18 +19,17 @@ function classNames(...classes: string[]) {
 }
 
 export default function NavBar() {
-    const { data: sessionData } = useSession();
-
+  const { data: sessionData } = useSession();
 
   return (
-    <Popover as="nav" className="bg-gray-800 relative">
+    <Popover as="nav" className="relative">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 md:px-8">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
                 {/* Mobile menu button*/}
-                <Popover.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <Popover.Button className="inline-flex items-center justify-center rounded-md p-2 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -39,11 +39,11 @@ export default function NavBar() {
                 </Popover.Button>
               </div>
               <div className="flex flex-1 items-center justify-center md:justify-start">
-                <div className="hidden md:flex flex-shrink-0 items-center">
+                <div className="hidden flex-shrink-0 items-center md:flex">
                   <div className="flex-col text-center xl:w-[160px]">
                     <h1 className="text-lg xl:text-2xl">
                       Serenity House
-                      <span className="block text-[0.6rem] font-light -mt-3">
+                      <span className="-mt-3 block text-[0.6rem] font-light">
                         Charlevoix Alano Club
                       </span>
                     </h1>
@@ -52,11 +52,7 @@ export default function NavBar() {
                 <div className="hidden sm:ml-6 md:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <NavLink
-                        key={item.name}
-                        href={item.href}
-                        mobile={false}
-                      >
+                      <NavLink key={item.name} href={item.href} mobile={false}>
                         {item.name}
                       </NavLink>
                     ))}
@@ -64,36 +60,46 @@ export default function NavBar() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button
+                {/* Light/Dark Mode ?xl:w-[160px]? */}
+                <div className="hidden flex-initial items-center justify-center lg:flex ">
+                  <ThemeButton className="bg-slate-300 dark:bg-slate-600" />
+                </div>
+
+                {/* Notifications */}
+                {/* <button
                   type="button"
                   className="rounded-full bg-gray-800 p-1 text- hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
                   <span className="sr-only">View notifications</span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
+                </button> */}
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
-                    {sessionData ? 
-                    <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                      <span className="sr-only">Open user menu</span>
-                      {sessionData.user?.image ? 
-                        <Image
+                    {sessionData ? (
+                      <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        <span className="sr-only">Open user menu</span>
+                        {sessionData.user?.image ? (
+                          <Image
                             className="h-8 w-8 rounded-full"
                             src={sessionData.user.image}
                             alt=""
                             width={200}
                             height={200}
-                            />  :
-                        <UserIcon />
-                      }
-                      </Menu.Button> :
-                      <Menu.Button onClick={() => signIn()} className="flex rounded-2xl px-4 py-2 font-medium transition hover:scale-105 duration-75 bg-rose-600 text-white text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                      Sign in
+                          />
+                        ) : (
+                          <UserIcon />
+                        )}
                       </Menu.Button>
-                        
-                      }
+                    ) : (
+                      <Menu.Button
+                        onClick={() => signIn()}
+                        className="flex rounded-2xl bg-rose-600 px-4 py-2 text-sm font-medium text-white transition duration-75 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                      >
+                        Sign in
+                      </Menu.Button>
+                    )}
                   </div>
                   <Transition
                     as={Fragment}
@@ -134,48 +140,51 @@ export default function NavBar() {
                       <Menu.Item>
                         {({ active }) => (
                           <button
-                          onClick={() => signOut()}
+                            onClick={() => signOut()}
                             className={classNames(
                               active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700 w-full text-start"
+                              "block w-full px-4 py-2 text-start text-sm text-gray-700"
                             )}
                           >
-                            Sign out                        
+                            Sign out
                           </button>
                         )}
-                      </Menu.Item>    
+                      </Menu.Item>
                     </Menu.Items>
                   </Transition>
                 </Menu>
               </div>
             </div>
-          </div>          
+          </div>
           <Transition
-                          as={Fragment}
-                          show={open}
-                          enter="transition ease-out duration-100"
-                          enterFrom="transform opacity-0 scale-95"
-                          enterTo="transform opacity-100 scale-100"
-                          leave="transition ease-in duration-75"
-                          leaveFrom="transform opacity-100 scale-100"
-                          leaveTo="transform opacity-0 scale-95"
-                        >
-          <Popover.Panel className="md:hidden absolute z-10 dark:bg-slate-800 w-full">
-            {({ close }) => (
-              <div onClick={() => close()} className="space-y-1 px-2 pt-2 pb-3 hover">
-                {navigation.map((item) => (
-                  <Popover.Button
-                    key={item.name}
-                    href={item.href}
-                    as={NavLink}
-                    mobile={true}
+            as={Fragment}
+            show={open}
+            enter="transition ease-out duration-100"
+            enterFrom="transform opacity-0 scale-95"
+            enterTo="transform opacity-100 scale-100"
+            leave="transition ease-in duration-75"
+            leaveFrom="transform opacity-100 scale-100"
+            leaveTo="transform opacity-0 scale-95"
+          >
+            <Popover.Panel className="absolute z-10 w-full dark:bg-slate-800 md:hidden">
+              {({ close }) => (
+                <div
+                  onClick={() => close()}
+                  className="hover space-y-1 px-2 pt-2 pb-3"
                 >
-                  {item.name}
-                </Popover.Button>
-              ))}       
-            </div>
-            )}   
-          </Popover.Panel>
+                  {navigation.map((item) => (
+                    <Popover.Button
+                      key={item.name}
+                      href={item.href}
+                      as={NavLink}
+                      mobile={true}
+                    >
+                      {item.name}
+                    </Popover.Button>
+                  ))}
+                </div>
+              )}
+            </Popover.Panel>
           </Transition>
         </>
       )}
