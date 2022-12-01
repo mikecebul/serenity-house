@@ -39,7 +39,7 @@ export default function NavBar() {
                     <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
                   )}
                 </Popover.Button>
-                <Popover.Overlay className="fixed inset-0 bg-black opacity-60" />
+                <Popover.Overlay className="fixed inset-0 bg-black opacity-60 z-10" />
               </div>
               <div className="flex flex-1 items-center justify-center md:justify-start">
                 <div className="hidden flex-shrink-0 items-center md:flex">
@@ -186,9 +186,9 @@ export default function NavBar() {
                     </Popover.Button>
                   ))}
                   {/* Light/Dark Mode */}
-                  <div className="w-full border-t sm:hidden">
+                  <div className="sm:hidden pt-6">
                     <Popover.Button
-                      className="flex items-center space-x-4 border-gray-600 pt-3 pl-3"
+                      className="flex items-center space-x-4 border-gray-200 pt-3 pl-3 border-t w-full "
                       onClick={() => {
                         setTheme(resolvedTheme === "light" ? "dark" : "light");
                       }}
