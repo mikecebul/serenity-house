@@ -36,7 +36,7 @@ export default function NavBar() {
                   {open ? (
                     <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
                   ) : (
-                    <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                    <Bars3Icon className="block h-6 w-6 dark:text-slate-300" aria-hidden="true" />
                   )}
                 </Popover.Button>
                 <Popover.Overlay className="fixed inset-0 bg-black opacity-60 z-10" />
