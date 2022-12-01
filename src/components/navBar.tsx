@@ -5,6 +5,7 @@ import Image from "next/image";
 import NavLink from "./navLink";
 import { signIn, signOut, useSession } from "next-auth/react";
 import ThemeButton from "./themeButton";
+import { useTheme } from "next-themes";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -20,6 +21,7 @@ function classNames(...classes: string[]) {
 
 export default function NavBar() {
   const { data: sessionData } = useSession();
+  const { resolvedTheme, setTheme } = useTheme();
 
   return (
     <Popover as="nav" className="relative">
@@ -37,6 +39,7 @@ export default function NavBar() {
                     <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
                   )}
                 </Popover.Button>
+                <Popover.Overlay className="fixed inset-0 bg-black opacity-60" />
               </div>
               <div className="flex flex-1 items-center justify-center md:justify-start">
                 <div className="hidden flex-shrink-0 items-center md:flex">
@@ -61,7 +64,7 @@ export default function NavBar() {
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* Light/Dark Mode ?xl:w-[160px]? */}
-                <div className="hidden flex-initial items-center justify-center lg:flex ">
+                <div className="hidden flex-initial items-center justify-center sm:flex ">
                   <ThemeButton className="bg-slate-300 dark:bg-slate-600" />
                 </div>
 
@@ -166,7 +169,7 @@ export default function NavBar() {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Popover.Panel className="absolute z-10 w-full dark:bg-slate-800 md:hidden">
+            <Popover.Panel className="absolute z-10 w-full bg-slate-100 dark:bg-slate-800 md:hidden">
               {({ close }) => (
                 <div
                   onClick={() => close()}
@@ -182,6 +185,20 @@ export default function NavBar() {
                       {item.name}
                     </Popover.Button>
                   ))}
+                  {/* Light/Dark Mode */}
+                  <div className="w-full border-t sm:hidden">
+                    <Popover.Button
+                      className="flex items-center space-x-4 border-gray-600 pt-3 pl-3"
+                      onClick={() => {
+                        setTheme(resolvedTheme === "light" ? "dark" : "light");
+                      }}
+                    >
+                      <ThemeButton className="bg-slate-300 dark:bg-slate-600" />
+                      <p className="text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700">
+                        Toggle Light/Dark Mode
+                      </p>
+                    </Popover.Button>
+                  </div>
                 </div>
               )}
             </Popover.Panel>
