@@ -1,6 +1,7 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import React from "react";
+import MeetingListSkeleton from "../components/meetingListSkeleton";
 import { trpc } from "../utils/trpc";
 // import { sortedMeetingsByDayAndTime } from '../utils/sort'
 // import { type Meeting } from "@prisma/client";
@@ -25,60 +26,20 @@ const Meetings: NextPage = () => {
           Meeting List
         </h3>
         {isLoading ? (
-          <div
-            role="status"
-            className="mx-auto mb-8 animate-pulse space-y-4 divide-y divide-gray-200 rounded border border-gray-200 p-4 shadow dark:divide-gray-700 dark:border-gray-700 md:p-6"
-          >
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="mb-2.5 h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                <div className="h-2 w-32 rounded-full bg-gray-200 dark:bg-gray-700"></div>
-              </div>
-              <div className="h-2.5 w-12 rounded-full bg-gray-300 dark:bg-gray-700"></div>
-            </div>
-            <div className="flex items-center justify-between pt-4">
-              <div>
-                <div className="mb-2.5 h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                <div className="h-2 w-32 rounded-full bg-gray-200 dark:bg-gray-700"></div>
-              </div>
-              <div className="h-2.5 w-12 rounded-full bg-gray-300 dark:bg-gray-700"></div>
-            </div>
-            <div className="flex items-center justify-between pt-4">
-              <div>
-                <div className="mb-2.5 h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                <div className="h-2 w-32 rounded-full bg-gray-200 dark:bg-gray-700"></div>
-              </div>
-              <div className="h-2.5 w-12 rounded-full bg-gray-300 dark:bg-gray-700"></div>
-            </div>
-            <div className="flex items-center justify-between pt-4">
-              <div>
-                <div className="mb-2.5 h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                <div className="h-2 w-32 rounded-full bg-gray-200 dark:bg-gray-700"></div>
-              </div>
-              <div className="h-2.5 w-12 rounded-full bg-gray-300 dark:bg-gray-700"></div>
-            </div>
-            <div className="flex items-center justify-between pt-4">
-              <div>
-                <div className="mb-2.5 h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                <div className="h-2 w-32 rounded-full bg-gray-200 dark:bg-gray-700"></div>
-              </div>
-              <div className="h-2.5 w-12 rounded-full bg-gray-300 dark:bg-gray-700"></div>
-            </div>
-            <span className="sr-only">Loading...</span>
-          </div>
+          <MeetingListSkeleton />
         ) : meetings ? (
           <>
             {/* Mobile display */}
             {meetings.map((meeting) => (
               <div
                 key={meeting.id}
-                className="grid grid-cols-5 p-2 text-sm even:bg-slate-200 dark:even:bg-slate-700 dark:text-slate-100 md:hidden"
+                className="grid grid-cols-5 p-2 text-sm even:bg-slate-200 dark:even:bg-slate-700 dark:text-slate-100 md:hidden  font-semibold"
               >
                 <div className="flex flex-col col-span-2 w-[100px] mx-auto">
-                  <div className="flex justify-center items-center rounded-t-lg bg-blue-800 text-white">
+                  <div className="flex justify-center items-center rounded-t-lg bg-blue-700 dark:bg-blue-900 text-white">
                     <p className="py-1 px-2 text-center">{meeting.day}</p>
                   </div>
-                  <div className="flex grow items-center justify-center rounded-b-lg bg-white dark:bg-slate-300 dark:text-slate-900">
+                  <div className="flex grow items-center justify-center rounded-b-lg bg-white dark:bg-slate-200 dark:text-slate-900">
                     <p className="py-1 px-2 text-center">
                       {meeting.time}
                     </p>
@@ -132,9 +93,12 @@ const Meetings: NextPage = () => {
             </div>
           </>
         ) : (
+          <>
+          {/* If error fetching */}
           <div>
             <h3 className="mx-auto text-lg">Oops! Something went wrong...</h3>
           </div>
+          </>
         )}
       </main>
     </>
