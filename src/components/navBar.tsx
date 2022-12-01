@@ -98,7 +98,7 @@ export default function NavBar() {
                     ) : (
                       <Menu.Button
                         onClick={() => signIn()}
-                        className="flex rounded-2xl bg-rose-600 px-4 py-2 text-sm font-medium text-white transition duration-75 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                        className="flex rounded-2xl bg-rose-700 px-4 py-2 text-sm font-medium text-white transition duration-75 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                       >
                         Sign in
                       </Menu.Button>
