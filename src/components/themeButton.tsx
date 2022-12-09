@@ -42,7 +42,7 @@ export default function ThemeButton({ children, className }: TButton) {
   const { resolvedTheme, theme, setTheme } = useTheme();
   return (
     <button
-      className={`rounded-md p-2 hover:ring-2 hover:ring-gray-300 ${className}`}
+      className={`rounded-md p-1 hover:ring-2 hover:ring-gray-300 ${className}`}
       onClick={() => {
         setTheme(resolvedTheme === "light" ? "dark" : "light");
       }}

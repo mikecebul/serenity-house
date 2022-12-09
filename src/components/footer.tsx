@@ -11,7 +11,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="p-4 sm:p-6">
+    <footer className="p-4 sm:p-6 bg-slate-50 dark:bg-slate-700 rounded-t-lg shadow">
       <div className="md:flex md:justify-between">
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 sm:gap-6">
           <div>
@@ -73,30 +73,30 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <hr className="my-6 border-slate-200 dark:border-slate-700 sm:mx-auto lg:my-8" />
+      <hr className="my-6 border-slate-200 dark:border-slate-600 sm:mx-auto" />
       <div className="sm:flex sm:items-center sm:justify-between">
         <span className="text-sm text-slate-500 dark:text-slate-400 sm:text-center">
           © {year}{" "}
-          <a href="https://flowbite.com/" className="hover:underline">
+          <Link href="/" className="hover:underline">
             Serenity House™
-          </a>
+          </Link>
           . All Rights Reserved.
         </span>
         <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
           <a
-            href="#"
+            href="https://www.facebook.com/groups/2252195235085917"
+            target="_blank"
+            rel="noreferrer"
             className="text-slate-500 hover:text-slate-900 dark:hover:text-white"
           >
             <svg
-              className="h-5 w-5"
-              fill="currentColor"
+              className="h-5 w-5 fill-slate-700 hover:fill-slate-900 dark:fill-slate-200 dark:hover:fill-slate-50"
               viewBox="0 0 24 24"
               aria-hidden="true"
             >
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
-                clip-rule="evenodd"
               />
             </svg>
             <span className="sr-only">Facebook group page</span>

@@ -19,8 +19,8 @@ export default function NavLink({ href, mobile, children }: TNavLink) {
       } rounded-md px-3 py-2 text-sm font-medium 
         ${
           active
-            ? "bg-gray-300 dark:bg-gray-900"
-            : " hover:bg-gray-200 dark:hover:bg-gray-700"
+            ? "bg-gray-300 dark:bg-gray-800 dark:hover:bg-slate-800"
+            : " hover:bg-gray-200 dark:hover:bg-slate-600"
         }
       `}
       href={href}
