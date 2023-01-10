@@ -1,80 +1,66 @@
 import Link from "next/link";
-import { Wrapper, type Status } from "@googlemaps/react-wrapper";
+import type { ReactElement } from "react";
+import { Status, Wrapper } from "@googlemaps/react-wrapper";
 import Map from "./map";
+import { env } from "../env/client.mjs";
 
 const Footer = () => {
   const today = new Date();
   const year = today.getFullYear();
 
-  const render = (status: Status) => {
-    return <h1>{status}</h1>;
+  const render = (status: Status): ReactElement => {
+    switch (status) {
+      case Status.LOADING:
+        return <h3>{status} ..</h3>;
+      case Status.FAILURE:
+        return <h3>{status} ...</h3>;
+      case Status.SUCCESS:
+        return <Map />;
+    }
   };
 
   return (
-    <footer className="p-4 sm:p-6 bg-slate-50 dark:bg-slate-700 rounded-t-lg shadow">
-      <div className="md:flex md:justify-between">
-        <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 sm:gap-6">
-          <div>
-            <h2 className="mb-6 text-sm font-semibold uppercase text-slate-900 dark:text-white">
-              Pages
-            </h2>
-            <ul className="text-slate-600 dark:text-slate-400">
-              <li className="mb-4">
-                <Link href="/" className="hover:underline">
-                  Home
-                </Link>
-              </li>
-              <li className="mb-4">
-                <Link href="/meetings" className="hover:underline">
-                  Meetings
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h2 className="mb-6 text-sm font-semibold uppercase text-slate-900 dark:text-white">
-              Follow us
-            </h2>
-            <ul className="text-slate-600 dark:text-slate-400">
-              <li className="mb-4">
-                <a
-                  target="_blank"
-                  rel="noreferrer"
-                  href="https://www.facebook.com/groups/2252195235085917"
-                  className="hover:underline "
-                >
-                  Facebook
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h2 className="mb-6 text-sm font-semibold uppercase text-slate-900 dark:text-white">
-              Legal
-            </h2>
-            <ul className="text-slate-600 dark:text-slate-400">
-              <li className="mb-4">
-                <a href="#" className="hover:underline">
-                  Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:underline">
-                  Terms &amp; Conditions
-                </a>
-              </li>
-            </ul>
-          </div>
-            {/* Google Map */}
-            <Wrapper apiKey="" render={render}>
-                <Map />
-            </Wrapper>
-          <div>
-          </div>
+    <footer className="rounded-t-lg bg-slate-50 p-4 shadow dark:bg-slate-700 sm:p-6">
+      <div className="flex flex-col space-y-8 md:flex-row md:justify-evenly md:space-y-0">
+        <div className="">
+          <h2 className="mb-6 text-sm font-semibold uppercase text-slate-900 dark:text-white">
+            Pages
+          </h2>
+          <ul className="text-slate-600 dark:text-slate-400">
+            <li className="mb-4">
+              <Link href="/" className="hover:underline">
+                Home
+              </Link>
+            </li>
+            <li className="mb-4">
+              <Link href="/meetings" className="hover:underline">
+                Meetings
+              </Link>
+            </li>
+          </ul>
         </div>
+        <div>
+          <h2 className="mb-6 text-sm font-semibold uppercase text-slate-900 dark:text-white">
+            Follow us
+          </h2>
+          <ul className="text-slate-600 dark:text-slate-400">
+            <li className="mb-4">
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://www.facebook.com/groups/2252195235085917"
+                className="hover:underline "
+              >
+                Facebook
+              </a>
+            </li>
+          </ul>
+        </div>
+        {/* Google Map */}
+        <Wrapper apiKey={env.NEXT_PUBLIC_GOOGLE_MAPS_API} render={render} />
       </div>
       <hr className="my-6 border-slate-200 dark:border-slate-600 sm:mx-auto" />
-      <div className="sm:flex sm:items-center sm:justify-between">
+      <div className="sm:flex sm:items-center sm:justify-between md:px-6">
         <span className="text-sm text-slate-500 dark:text-slate-400 sm:text-center">
           © {year}{" "}
           <Link href="/" className="hover:underline">
@@ -106,7 +92,5 @@ const Footer = () => {
     </footer>
   );
 };
-
-
 
 export default Footer;

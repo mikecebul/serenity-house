@@ -29,6 +29,7 @@ export default function Hero() {
             src={alanoClub}
             alt="Front door of the Charlevoix Alano Club"
             className="object-cover"
+            priority
           />
           <svg
             viewBox="0 0 100 100"
