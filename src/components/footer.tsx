@@ -3,11 +3,18 @@ import type { ReactElement } from "react";
 import { Status, Wrapper } from "@googlemaps/react-wrapper";
 import Map from "./map";
 import { env } from "../env/client.mjs";
+import Marker from "./marker";
 
 const Footer = () => {
   const today = new Date();
   const year = today.getFullYear();
 
+  const alanoClub = {
+    lat: 45.315694564004815,
+    lng: -85.25995679164798,
+  } as google.maps.LatLngAltitudeLiteral
+
+ 
   const render = (status: Status): ReactElement => {
     switch (status) {
       case Status.LOADING:
@@ -15,9 +22,14 @@ const Footer = () => {
       case Status.FAILURE:
         return <h3>{status} ...</h3>;
       case Status.SUCCESS:
-        return <Map />;
+        return (
+          <Map center={alanoClub}>
+            <Marker position={alanoClub} />
+          </Map>
+        )
     }
   };
+
 
   return (
     <footer className="rounded-t-lg bg-slate-50 p-4 shadow dark:bg-slate-700 sm:p-6">
