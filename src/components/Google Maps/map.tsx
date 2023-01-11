@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes";
 import { nightStyles } from "./styles";
-import { set } from "zod";
 
 interface MapProps extends google.maps.MapOptions {
   style?: { [key: string]: string };
