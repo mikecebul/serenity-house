@@ -46,6 +46,7 @@ const Map: React.FC<MapProps> = ({ center, zoom, children }) => {
       {React.Children.map(children, (child) => {
         if (React.isValidElement(child)) {
           // set the map prop on the child component
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           return React.cloneElement(child, { map });
         }
