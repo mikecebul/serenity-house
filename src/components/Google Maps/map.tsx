@@ -14,8 +14,6 @@ const Map: React.FC<MapProps> = ({ center, zoom, children }) => {
   const [map, setMap] = useState<google.maps.Map>();
 
   const { theme } = useTheme();
-  const initialState = theme === "dark" ? "dark" : "light";
-  const [currentTheme, setCurrentTheme] = useState(initialState);
   
   useEffect(() => {
     if (ref.current && !map) {
@@ -23,24 +21,20 @@ const Map: React.FC<MapProps> = ({ center, zoom, children }) => {
         new window.google.maps.Map(ref.current, {
           center: center,
           zoom: 15,
-          styles: currentTheme === "dark" ? nightStyles : [],
+          styles: theme === "dark" ? nightStyles : [],
         })
-        );
+        )
       }
-    }, [ref, map, center, zoom, currentTheme]);
+    }, [ref, map, center, zoom, theme]);
     
     useEffect(() => {
-      if (theme !== currentTheme) {
-        if (currentTheme === "dark") {
-          setCurrentTheme("light");
+      if (theme === 'light') {
           map?.setOptions({styles: []})
         }
-        if (currentTheme === "light") {
-          setCurrentTheme("dark");
+        if (theme === "dark") {
           map?.setOptions({styles: nightStyles})
         }
-      }
-    }, [currentTheme, theme, map]);
+      }, [theme, map]);
 
   return (
     <>
