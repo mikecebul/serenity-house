@@ -1,9 +1,9 @@
 import Link from "next/link";
 import type { ReactElement } from "react";
 import { Status, Wrapper } from "@googlemaps/react-wrapper";
-import Map from "./map";
+import Map from "./Google Maps/map";
 import { env } from "../env/client.mjs";
-import Marker from "./marker";
+import Marker from "./Google Maps/marker";
 
 const Footer = () => {
   const today = new Date();
